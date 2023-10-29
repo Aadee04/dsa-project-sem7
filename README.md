@@ -1,2 +1,3 @@
-# dsa-project-sem7
-Work in progress...
+# File Compressor
+
+Current version uses Huffman Coding algorithm to reduce the size occupied by the most frequently occuring characters. 

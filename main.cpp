@@ -114,7 +114,7 @@ void huffmanEncode(const string& inputFile, const string& outputFile, unsigned l
     long long inSize = inFile.seekg(0, ios::end).tellg(), outSize = outFile.seekp(0, ios::end).tellp();
     cout << "Input size: " << inSize << endl;
     cout << "Output size: " << outSize << endl;
-    cout << "A compressed rate of: " << ( (float)outSize/inSize ) * 100 << "%" << endl;
+    cout << "A compression rate of: " << ( (float)outSize/inSize ) * 100 << "%" << endl;
 
     inFile.close();
     outFile.close();
@@ -180,34 +180,30 @@ void huffmanDecode(const string& inputFile, const string& outputFile, unsigned l
 
 int main() {
     unsigned long size;
-    string inputFile; // = "/Users/aadee/Desktop/NMIMS FILES/SEM VII/DSA/Project/File_Compressor/File_Compressor/input.txt";
+    string inputFile;
     cout << "Enter the path to the input file: ";
     getline(cin, inputFile);
     
-    string compressedFile; // = "/Users/aadee/Desktop/NMIMS FILES/SEM VII/DSA/Project/File_Compressor/File_Compressor/compressed.bin";
-    cout << "Enter the path to the compressed file: ";
-    getline(cin, compressedFile);
-    
-    string decompressedFile; // = "/Users/aadee/Desktop/NMIMS FILES/SEM VII/DSA/Project/File_Compressor/File_Compressor/decompressed.txt";
-    cout << "Enter the path to the decompressed file: ";
-    getline(cin, decompressedFile);
-
     // Just the names
     string inputName = inputFile.substr(inputFile.rfind("/") + 1);
-    string compressedName = compressedFile.substr(compressedFile.rfind("/") + 1);
-    string decompressedName = decompressedFile.substr(decompressedFile.rfind("/") + 1);
+    string compressedName = "compressed.bin";
+    string decompressedName = inputName.substr(0, inputName.rfind(".")) + "_decompressed.txt";
     
-    // Compress the file
+    string parent_folder = inputFile.substr(0, inputFile.rfind("/") + 1);
+    string compressedFile = parent_folder + compressedName;
+    string decompressedFile = parent_folder + decompressedName;
+
+
+    
     cout << "\nCompressing..." << endl;
     huffmanEncode(inputFile, compressedFile, size);
     cout << inputName << " has been compressed to " << compressedName << endl;
-    cout << "Location:" << compressedFile << endl << endl;
+    cout << "Location: " << compressedFile << endl << endl;
     
-    // Decompress the file
     cout << "Decompressing..." << endl;
     huffmanDecode(compressedFile, decompressedFile, size);
     cout << compressedName << " has been decompressed to " << decompressedName << endl;
-    cout << "Location:" << decompressedFile << endl;
+    cout << "Location: " << decompressedFile << endl << endl;
     
     return 0;
 }
